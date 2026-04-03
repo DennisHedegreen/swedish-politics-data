@@ -1,4 +1,4 @@
-# Roadmap — Swedish Political Data
+# Roadmap — Swedish Politics Data
 
 Public country-surface roadmap.
 

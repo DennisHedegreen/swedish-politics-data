@@ -1,4 +1,4 @@
-# Changelog — Swedish Political Data
+# Changelog — Swedish Politics Data
 
 ## 2026-04-03
 

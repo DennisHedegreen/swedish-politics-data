@@ -19,7 +19,7 @@ Check:
 
 ## Public deploy shape
 
-- App title: `Swedish Political Data`
+- App title: `Swedish Politics Data`
 - Country exposure: `Sweden` only
 - No public country selector
 - No other-country wording in the visible surface

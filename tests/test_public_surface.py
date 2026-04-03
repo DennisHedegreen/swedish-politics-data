@@ -22,7 +22,7 @@ class PublicSurfaceContractTests(unittest.TestCase):
 
     def test_public_wrapper_defaults(self):
         wrapper = (Path(__file__).resolve().parents[1] / "app.py").read_text(encoding="utf-8")
-        self.assertIn('WPD_APP_TITLE", "Swedish Political Data"', wrapper)
+        self.assertIn('WPD_APP_TITLE", "Swedish Politics Data"', wrapper)
         self.assertIn('WPD_EXPOSE_COUNTRIES", "sweden"', wrapper)
 
 

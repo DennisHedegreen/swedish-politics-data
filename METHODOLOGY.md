@@ -1,4 +1,4 @@
-# Methodology — Swedish Political Data
+# Methodology — Swedish Politics Data
 
 ## What this tool is
 

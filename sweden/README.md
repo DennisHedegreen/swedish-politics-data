@@ -1,6 +1,6 @@
 # Sweden Public Pack
 
-Public Sweden pack for `Swedish Political Data`.
+Public Sweden pack for `Swedish Politics Data`.
 
 Current public-safe scope:
 

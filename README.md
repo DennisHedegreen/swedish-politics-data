@@ -1,4 +1,4 @@
-# Swedish Political Data
+# Swedish Politics Data
 
 A public reading surface for Swedish Riksdag results at municipality level, paired with a deliberately narrow Sweden-safe factor layer.
 
