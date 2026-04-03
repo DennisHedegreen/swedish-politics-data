@@ -1,8 +1,13 @@
 # Swedish Politics Data
 
-A public reading surface for Swedish Riksdag results at municipality level, paired with a deliberately narrow Sweden-safe factor layer.
+A public reading surface for Swedish Riksdag results at municipality level, paired with a municipality-safe Swedish factor layer.
 
-This repo is the Sweden-only public surface extracted from a shared internal source tree maintained by Hedegreen Research. It keeps the public app shell, Sweden data pack, Sweden scope notes, and Sweden-only documentation in one place.
+This repo is the Sweden-only public surface rebuilt from a shared internal source tree maintained by Hedegreen Research. It keeps the public app shell, Sweden data pack, Sweden methodology, and Sweden-only public notes in one place.
+
+## Public door
+
+- TID door: `https://hedegreenresearch.com/tid/swedish-politics-data/`
+- GitHub repo: `https://github.com/DennisHedegreen/swedish-politics-data`
 
 ## Current scope
 
@@ -24,7 +29,6 @@ streamlit run app.py
 - Not a broader politics product beyond the declared Sweden scope
 - Not a prediction model
 - Not an explanation engine
-- Not a broader politics product beyond the declared Sweden scope
 - Not a full Sweden election archive beyond the declared Riksdag scope
 
 ## Intentionally missing
