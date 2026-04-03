@@ -1,0 +1,55 @@
+country_id,election_type,election_year,party_id,party,share,mandates,source_name,provenance_ref
+sweden,riksdag,2002,arbetarepartiet-socialdemokraterna,Arbetarepartiet-Socialdemokraterna,39.85,144,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2002,centerpartiet,Centerpartiet,6.19,22,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2002,kristdemokraterna,Kristdemokraterna,9.15,33,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2002,liberalerna-tidigare-folkpartiet,Liberalerna (tidigare Folkpartiet),13.39,48,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2002,miljopartiet-de-grona,Miljöpartiet de gröna,4.65,17,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2002,moderaterna,Moderaterna,15.26,55,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2002,vansterpartiet,Vänsterpartiet,8.39,30,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2002,ovriga-partier,Övriga partier,3.12,0,Valmyndigheten national summary 2002,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,arbetarepartiet-socialdemokraterna,Arbetarepartiet-Socialdemokraterna,34.99,130,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,centerpartiet,Centerpartiet,7.88,29,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,kristdemokraterna,Kristdemokraterna,6.59,24,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,liberalerna-tidigare-folkpartiet,Liberalerna (tidigare Folkpartiet),7.54,28,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,miljopartiet-de-grona,Miljöpartiet de gröna,5.24,19,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,moderaterna,Moderaterna,26.23,97,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,vansterpartiet,Vänsterpartiet,5.85,22,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2006,ovriga-partier,Övriga partier,5.67,0,Valmyndigheten national summary 2006,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,arbetarepartiet-socialdemokraterna,Arbetarepartiet-Socialdemokraterna,30.66,112,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,centerpartiet,Centerpartiet,6.56,23,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,kristdemokraterna,Kristdemokraterna,5.6,19,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,liberalerna-tidigare-folkpartiet,Liberalerna (tidigare Folkpartiet),7.06,24,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,miljopartiet-de-grona,Miljöpartiet de gröna,7.34,25,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,moderaterna,Moderaterna,30.06,107,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,sverigedemokraterna,Sverigedemokraterna,5.7,20,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,vansterpartiet,Vänsterpartiet,5.6,19,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2010,ovriga-partier,Övriga partier,1.43,0,Valmyndigheten national summary 2010,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,arbetarepartiet-socialdemokraterna,Arbetarepartiet-Socialdemokraterna,31.01,113,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,centerpartiet,Centerpartiet,6.11,22,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,feministiskt-initiativ,Feministiskt initiativ,3.12,0,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,kristdemokraterna,Kristdemokraterna,4.57,16,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,liberalerna-tidigare-folkpartiet,Liberalerna (tidigare Folkpartiet),5.42,19,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,miljopartiet-de-grona,Miljöpartiet de gröna,6.89,25,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,moderaterna,Moderaterna,23.33,84,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,sverigedemokraterna,Sverigedemokraterna,12.86,49,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,vansterpartiet,Vänsterpartiet,5.72,21,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2014,ovriga-partier,Övriga partier,0.97,0,Valmyndigheten national summary 2014,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,arbetarepartiet-socialdemokraterna,Arbetarepartiet-Socialdemokraterna,28.26,100,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,centerpartiet,Centerpartiet,8.61,31,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,feministiskt-initiativ,Feministiskt initiativ,0.46,0,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,kristdemokraterna,Kristdemokraterna,6.32,22,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,liberalerna-tidigare-folkpartiet,Liberalerna (tidigare Folkpartiet),5.49,20,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,miljopartiet-de-grona,Miljöpartiet de gröna,4.41,16,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,moderaterna,Moderaterna,19.84,70,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,sverigedemokraterna,Sverigedemokraterna,17.53,62,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,vansterpartiet,Vänsterpartiet,8.0,28,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2018,ovriga-partier,Övriga partier,1.07,0,Valmyndigheten national summary 2018,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,arbetarepartiet-socialdemokraterna,Arbetarepartiet-Socialdemokraterna,30.33,107,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,centerpartiet,Centerpartiet,6.71,24,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,kristdemokraterna,Kristdemokraterna,5.34,19,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,liberalerna-tidigare-folkpartiet,Liberalerna (tidigare Folkpartiet),4.61,16,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,miljopartiet-de-grona,Miljöpartiet de gröna,5.08,18,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,moderaterna,Moderaterna,19.1,68,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,sverigedemokraterna,Sverigedemokraterna,20.54,73,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,vansterpartiet,Vänsterpartiet,6.75,24,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json
+sweden,riksdag,2022,ovriga-partier,Övriga partier,1.54,0,Valmyndigheten national summary 2022,provenance/sweden_public_manifest.json

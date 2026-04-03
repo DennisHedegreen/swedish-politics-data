@@ -1,0 +1,119 @@
+{
+  "country_id": "sweden",
+  "built_at": "2026-04-03T13:03:08Z",
+  "scope": {
+    "election_type": "riksdag",
+    "election_years": [
+      2014,
+      2018,
+      2022
+    ],
+    "national_election_years": [
+      2002,
+      2006,
+      2010,
+      2014,
+      2018,
+      2022
+    ],
+    "public_geography_type": "municipality",
+    "public_geography_count": 290,
+    "factors": [
+      "population",
+      "age65",
+      "education",
+      "income",
+      "turnout",
+      "density",
+      "cars"
+    ]
+  },
+  "sources": [
+    {
+      "name": "Valmyndigheten 2014 municipality export",
+      "url": "https://historik.val.se/val/val2014/statistik/2014_riksdagsval_per_kommun.skv",
+      "outputs": [
+        "sweden/riksdag/riksdag_party_share_by_municipality.csv",
+        "sweden/factors/turnout_pct.csv"
+      ]
+    },
+    {
+      "name": "Valmyndigheten 2018 municipality workbook",
+      "url": "https://historik.val.se/val/val2018/statistik/2018_R_per_kommun.xlsx",
+      "outputs": [
+        "sweden/riksdag/riksdag_party_share_by_municipality.csv",
+        "sweden/factors/turnout_pct.csv"
+      ]
+    },
+    {
+      "name": "Valmyndigheten 2022 municipality workbook",
+      "url": "https://www.val.se/download/18.162047b519a91d0533118f4b/1764336897948/Roster-per-distrikt-slutligt-antal-roster-inklusive-totalt-valdeltagande-riksdagsvalet-2022.xlsx",
+      "outputs": [
+        "sweden/riksdag/riksdag_party_share_by_municipality.csv",
+        "sweden/factors/turnout_pct.csv"
+      ]
+    },
+    {
+      "name": "Valmyndigheten previous national Riksdag summaries (2002–2018)",
+      "url": "https://www.val.se/valresultat-och-statistik/riksdags--region--och-kommunval/tidigare-valresultat",
+      "outputs": [
+        "sweden/riksdag/riksdag_national_vote_share.csv"
+      ]
+    },
+    {
+      "name": "Valmyndigheten national Riksdag summary 2022",
+      "url": "https://www.val.se/valresultat-och-statistik/riksdags--region--och-kommunval/valresultat-2022",
+      "outputs": [
+        "sweden/riksdag/riksdag_national_vote_share.csv"
+      ]
+    },
+    {
+      "name": "Statistics Sweden TAB1267",
+      "url": "https://statistikdatabasen.scb.se/api/v2/tables/TAB1267/data?lang=en&outputFormat=json-stat2",
+      "outputs": [
+        "sweden/factors/population.csv",
+        "sweden/factors/age65_pct.csv"
+      ]
+    },
+    {
+      "name": "Statistics Sweden TAB3981",
+      "url": "https://statistikdatabasen.scb.se/api/v2/tables/TAB3981/data?lang=en&outputFormat=json-stat2",
+      "outputs": [
+        "sweden/factors/education.csv"
+      ]
+    },
+    {
+      "name": "Statistics Sweden TAB1792",
+      "url": "https://statistikdatabasen.scb.se/api/v2/tables/TAB1792/data?lang=en&outputFormat=json-stat2",
+      "outputs": [
+        "sweden/factors/income.csv"
+      ]
+    },
+    {
+      "name": "Statistics Sweden TAB628",
+      "url": "https://statistikdatabasen.scb.se/api/v2/tables/TAB628/data?lang=en&outputFormat=json-stat2",
+      "outputs": [
+        "sweden/factors/population_density.csv"
+      ]
+    },
+    {
+      "name": "Statistics Sweden TAB1278 bulk export",
+      "url": "https://www.statistikdatabasen.scb.se/Resources/PX/bulk/ssd/en/TAB1278_en.zip",
+      "outputs": [
+        "sweden/factors/cars_per_1000.csv"
+      ]
+    }
+  ],
+  "files_written": {
+    "votes": 38280,
+    "national_votes": 54,
+    "population": 870,
+    "age65": 870,
+    "education": 870,
+    "income": 870,
+    "turnout": 870,
+    "density": 870,
+    "cars": 870
+  },
+  "comparability_rule": "All Sweden public factors remain country-local or family-mapped only. Public comparability beyond the declared Sweden scope is not claimed."
+}
