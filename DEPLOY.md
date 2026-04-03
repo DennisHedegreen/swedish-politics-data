@@ -9,6 +9,7 @@ Primary target:
 - Branch: `main`
 - Entrypoint: `app.py`
 - Suggested app URL: `swedish-politics-data.streamlit.app`
+- Current live URL: `https://swedish-politics-data-pwbwzee7hokpl2kddnycgj.streamlit.app/`
 - Secrets: none required for the current public build
 
 ## Local smoke
