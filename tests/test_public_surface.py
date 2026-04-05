@@ -25,6 +25,13 @@ class PublicSurfaceContractTests(unittest.TestCase):
         self.assertIn('WPD_APP_TITLE", "Swedish Politics Data"', wrapper)
         self.assertIn('WPD_EXPOSE_COUNTRIES", "sweden"', wrapper)
 
+    def test_runtime_helper_modules_exist(self):
+        root = Path(__file__).resolve().parents[1]
+        for filename in ("app_data_variants.py", "app_failure_states.py"):
+            path = root / filename
+            self.assertTrue(path.exists(), filename)
+            compile(path.read_text(encoding="utf-8"), str(path), "exec")
+
 
 if __name__ == "__main__":
     unittest.main()

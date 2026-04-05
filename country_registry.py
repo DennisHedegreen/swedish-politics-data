@@ -143,6 +143,7 @@ class CountryConfig:
     public_geography_count: int
     supported_factors: tuple[str, ...]
     supported_elections: tuple[str, ...]
+    internal_ready: bool
     public_ready: bool
     municipal_vote_path: Path
     national_vote_path: Path | None
@@ -169,6 +170,7 @@ COUNTRY = CountryConfig(
     public_geography_count=290,
     supported_factors=('population', 'age65', 'education', 'income', 'turnout', 'density', 'cars'),
     supported_elections=('riksdag',),
+    internal_ready=True,
     public_ready=True,
     municipal_vote_path=ROOT / "sweden/riksdag/riksdag_party_share_by_municipality.csv",
     national_vote_path=ROOT / "sweden/riksdag/riksdag_national_vote_share.csv",
@@ -189,6 +191,10 @@ def list_public_countries() -> list[CountryConfig]:
     return [COUNTRY]
 
 
+def list_internal_countries() -> list[CountryConfig]:
+    return [COUNTRY]
+
+
 def country_data_pack_exists(config: CountryConfig) -> bool:
     if not config.municipal_vote_path.exists():
         return False
@@ -197,15 +203,36 @@ def country_data_pack_exists(config: CountryConfig) -> bool:
     return True
 
 
-def list_exposed_public_countries(
+def _normalize_allowed_country_ids(allowed_country_ids: Iterable[str] | None) -> list[str] | None:
+    if allowed_country_ids is None:
+        return None
+    return [country_id.strip().lower() for country_id in allowed_country_ids if country_id.strip()]
+
+
+def list_exposed_countries(
     allowed_country_ids: Iterable[str] | None = None,
+    *,
+    allow_internal: bool = False,
     require_data_pack: bool = True,
 ) -> list[CountryConfig]:
-    allowed = None if allowed_country_ids is None else {
-        country_id.strip().lower() for country_id in allowed_country_ids if country_id.strip()
-    }
-    if allowed is not None and COUNTRY.country_id not in allowed:
+    allowed = _normalize_allowed_country_ids(allowed_country_ids)
+    if allowed is None:
+        if require_data_pack and not country_data_pack_exists(COUNTRY):
+            return []
+        return [COUNTRY]
+    if COUNTRY.country_id not in allowed:
         return []
     if require_data_pack and not country_data_pack_exists(COUNTRY):
         return []
     return [COUNTRY]
+
+
+def list_exposed_public_countries(
+    allowed_country_ids: Iterable[str] | None = None,
+    require_data_pack: bool = True,
+) -> list[CountryConfig]:
+    return list_exposed_countries(
+        allowed_country_ids,
+        allow_internal=False,
+        require_data_pack=require_data_pack,
+    )
