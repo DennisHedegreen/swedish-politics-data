@@ -1,8 +1,10 @@
 # Swedish Politics Data
 
-A public reading surface for Swedish Riksdag results at municipality level, paired with a municipality-safe Swedish factor layer.
+> Sorry — the live Streamlit app is not functioning reliably right now. If you want to debug it, investigate the code, or send a fix, you are very welcome.
 
-This repo is the Sweden-only public surface rebuilt from a shared internal source tree maintained by Hedegreen Research. It keeps the public app shell, Sweden data pack, Sweden methodology, and Sweden-only public notes in one place.
+A public reading surface for Swedish Riksdag results at municipality level, paired with a deliberately narrow Sweden-safe factor layer.
+
+This repo is the Sweden-only public surface extracted from the internal World-politics-data engine. It keeps the public app shell, Sweden data pack, Sweden scope notes, and Sweden-only documentation without exposing the internal multi-country registry.
 
 ## Public door
 
@@ -26,9 +28,10 @@ streamlit run app.py
 
 ## What this repo is not
 
-- Not a broader politics product beyond the declared Sweden scope
+- Not a multi-country politics product
 - Not a prediction model
 - Not an explanation engine
+- Not a broader politics product beyond the declared Sweden scope
 - Not a full Sweden election archive beyond the declared Riksdag scope
 
 ## Intentionally missing
