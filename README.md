@@ -1,5 +1,7 @@
 # Swedish Politics Data
 
+> Sorry — the live Streamlit app is not functioning reliably right now. If you want to debug it, investigate the code, or send a fix, you are very welcome.
+
 A public reading surface for Swedish Riksdag results at municipality level, paired with a deliberately narrow Sweden-safe factor layer.
 
 This repo is the Sweden-only public surface extracted from the internal World-politics-data engine. It keeps the public app shell, Sweden data pack, Sweden scope notes, and Sweden-only documentation without exposing the internal multi-country registry.
