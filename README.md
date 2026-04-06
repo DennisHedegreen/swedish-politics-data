@@ -7,6 +7,7 @@ This repo is the Sweden-only public surface extracted from the internal World-po
 ## Public door
 
 - TID door: `https://hedegreenresearch.com/tid/swedish-politics-data/`
+- Live app: `https://swedish-politics-data-s7o3pezehv8somxirp8pde.streamlit.app/`
 - GitHub repo: `https://github.com/DennisHedegreen/swedish-politics-data`
 
 ## Current scope
