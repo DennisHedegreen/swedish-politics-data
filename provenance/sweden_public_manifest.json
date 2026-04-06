@@ -1,9 +1,26 @@
 {
   "country_id": "sweden",
-  "built_at": "2026-04-03T13:03:08Z",
+  "built_at": "2026-04-03T23:32:11Z",
   "scope": {
     "election_type": "riksdag",
     "election_years": [
+      2014,
+      2018,
+      2022
+    ],
+    "historical_election_only_years": [
+      1973,
+      1976,
+      1979,
+      1982,
+      1985,
+      1988,
+      1991,
+      1994,
+      1998,
+      2002,
+      2006,
+      2010,
       2014,
       2018,
       2022
@@ -68,6 +85,13 @@
       ]
     },
     {
+      "name": "Statistics Sweden ME0104T3 historical municipality series (1973–2022)",
+      "url": "https://www.statistikdatabasen.scb.se/Resources/PX/bulk/ssd/sv/TAB2706_sv.zip",
+      "outputs": [
+        "sweden/riksdag/riksdag_historical_party_share_by_municipality.csv"
+      ]
+    },
+    {
       "name": "Statistics Sweden TAB1267",
       "url": "https://statistikdatabasen.scb.se/api/v2/tables/TAB1267/data?lang=en&outputFormat=json-stat2",
       "outputs": [
@@ -106,6 +130,7 @@
   ],
   "files_written": {
     "votes": 38280,
+    "historical_votes": 35204,
     "national_votes": 54,
     "population": 870,
     "age65": 870,
@@ -115,5 +140,5 @@
     "density": 870,
     "cars": 870
   },
-  "comparability_rule": "All Sweden public factors remain country-local or family-mapped only. Public comparability beyond the declared Sweden scope is not claimed."
+  "comparability_rule": "All Sweden public factors remain country-local or family-mapped only. No Sweden-vs-Denmark public comparability is claimed. Historical municipality election rows are election-only and should not be read as a factor-aware pattern layer."
 }
