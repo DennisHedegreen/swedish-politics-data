@@ -17,7 +17,7 @@ A public reading surface for Swedish politics data. It pairs Riksdag election re
 - Election type: `Riksdag`
 - Public geography: `municipality`
 - Public geography count: `290`
-- Current public factors: `Population, Age 65+, Education, Income, Turnout, Population density, Cars, Rented accommodation, One-/two-dwelling buildings, Employment, Unemployment`
+- Current public factors: `Population, Age 65+, Education, Income, Turnout, Population density, Cars, Rented accommodation, One-/two-dwelling buildings, Employment (2022 only), Unemployment (2022 only)`
 
 ## Data handling rules
 
