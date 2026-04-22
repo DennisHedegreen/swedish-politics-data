@@ -4,9 +4,9 @@ Swedish Politics Data compares Swedish Riksdag vote shares with municipality-lev
 
 ## Public Door
 
-- TID door: `https://hedegreenresearch.com/tid/swedish-politics-data/`
-- Live app: `https://swedish-politics-data-s7o3pezehv8somxirp8pde.streamlit.app/`
-- GitHub repo: `https://github.com/DennisHedegreen/swedish-politics-data`
+- TID door: [hedegreenresearch.com/tid/swedish-politics-data](https://hedegreenresearch.com/tid/swedish-politics-data/)
+- Live app: [swedish-politics-data Streamlit app](https://swedish-politics-data-s7o3pezehv8somxirp8pde.streamlit.app/)
+- GitHub repo: [DennisHedegreen/swedish-politics-data](https://github.com/DennisHedegreen/swedish-politics-data)
 
 ## Declared Scope
 
