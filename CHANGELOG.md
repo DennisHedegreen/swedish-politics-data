@@ -1,6 +1,6 @@
 # Changelog — Swedish Politics Data
 
-## Unreleased
+## v0.1.0 - 2026-04-22
 
 - Strengthened the public README, methodology note, and journalist reading guide for first release.
 - Added minimal contribution guidance and MIT license.

@@ -1,6 +1,6 @@
 # Swedish Politics Data
 
-Swedish Politics Data is a public Streamlit tool for reading Swedish Riksdag election results at municipality level beside a deliberately narrow Sweden-safe factor layer. It helps journalists, analysts, and curious readers see where vote shares move together with measurable local conditions, without treating those patterns as explanations.
+Swedish Politics Data compares Swedish Riksdag vote shares with municipality-level public factors. It is built for finding reporting leads and visible patterns, not for proving why people vote as they do.
 
 ## Public Door
 
@@ -39,6 +39,10 @@ This repo is Sweden-only and Riksdag-only. It does not cover Swedish regional or
 Positive correlation means higher party vote share tends to appear in municipalities where the selected factor is higher. Negative correlation means higher party vote share tends to appear where the selected factor is lower. The result is ranked by absolute correlation strength, so `-0.62` is treated as stronger than `0.31`.
 
 Example: if a party has `r = -0.54` with rented accommodation in 2022, a responsible reading is: "The party tended to have lower vote shares in municipalities with higher rented-accommodation shares in this election year." It is not: "Rental housing caused voters to reject this party."
+
+## Quick Case
+
+A journalist could start with a strong party-factor result, open the high and low municipality tables, and ask a concrete reporting question: is this a real geographic pattern, a party-history pattern, or just a one-year artifact? The app gives the lead. The reporting still has to do the verification.
 
 See [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) and [METHODOLOGY.md](METHODOLOGY.md) before using results in public claims.
 
