@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from core.correlation import compute_correlation_result, corr_strength_label
+from core.correlation import compute_correlation_result, corr_strength_label, rank_correlation_results
 from core.data_variants import resolve_sweden_public_path
 from core.failure_states import describe_public_data_state, summarize_public_data_state
 from core.presentation import (
@@ -572,7 +572,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                     unsafe_allow_html=True,
                 )
                 return
-            ranked = sorted(valid_results, key=lambda x: abs(float(x["r"])), reverse=True)
+            ranked = rank_correlation_results(valid_results)
             summary = pd.DataFrame(
                 [{"Factor": r["factor"], "Label": r["factor"], "r": r["r"], "Strength": r["strength"]} for r in ranked]
             )
@@ -609,7 +609,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                     unsafe_allow_html=True,
                 )
                 return
-            ranked = sorted(valid_results, key=lambda x: abs(float(x["r"])), reverse=True)
+            ranked = rank_correlation_results(valid_results)
             summary = pd.DataFrame(
                 [{"Party": format_party_name(r["party"], metadata=country_config.party_metadata, mode=party_name_mode, compact=True), "Party_full": format_party_name(r["party"], metadata=country_config.party_metadata, mode=party_name_mode), "r": r["r"], "Strength": r["strength"]} for r in ranked]
             )

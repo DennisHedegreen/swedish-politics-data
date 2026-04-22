@@ -1,5 +1,11 @@
 # Changelog — Swedish Politics Data
 
+## Unreleased
+
+- Strengthened the public README, methodology note, and journalist reading guide for first release.
+- Added minimal contribution guidance and MIT license.
+- Added deterministic correlation/ranking and public-scope contract coverage.
+
 ## 2026-04-03
 
 - Opened this repo as a single-country public extraction from a shared internal source tree.
