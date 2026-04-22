@@ -57,7 +57,18 @@ BASE_FACTOR_CATALOG = {'population': {'label': 'Population',
                                 'question': 'Do settlement-form patterns '
                                             'correlate with voting behaviour?',
                                 'filename': 'one_two_dwelling_building_share_pct.csv',
-                                'comparability_status': 'country_local'}}
+                                'comparability_status': 'country_local'},
+ 'employment': {'label': 'Employment',
+                'metric_label': 'Full-time employees per 1,000 residents',
+                'question': 'Do areas with higher employment vote differently?',
+                'filename': 'employment_per_1000.csv',
+                'comparability_status': 'country_local'},
+ 'unemployment': {'label': 'Unemployment',
+                  'metric_label': 'Full-time unemployment rate (%)',
+                  'question': 'Do municipalities with higher unemployment vote '
+                              'differently?',
+                  'filename': 'unemployment_pct.csv',
+                  'comparability_status': 'country_local'}}
 
 PARTY_METADATA = {'Arbetarepartiet-Socialdemokraterna': {'native': 'Arbetarepartiet-Socialdemokraterna',
                                         'english': 'Social Democrats',
@@ -181,7 +192,7 @@ COUNTRY = CountryConfig(
     public_geography_label='municipality',
     public_geography_label_plural='municipalities',
     public_geography_count=290,
-    supported_factors=('population', 'age65', 'education', 'income', 'turnout', 'density', 'cars', 'rented_accommodation', 'one_two_dwelling_buildings'),
+    supported_factors=('population', 'age65', 'education', 'income', 'turnout', 'density', 'cars', 'rented_accommodation', 'one_two_dwelling_buildings', 'employment', 'unemployment'),
     supported_elections=('riksdag',),
     internal_ready=True,
     public_ready=True,

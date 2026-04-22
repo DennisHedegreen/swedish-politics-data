@@ -44,7 +44,9 @@
       "density",
       "cars",
       "rented_accommodation",
-      "one_two_dwelling_buildings"
+      "one_two_dwelling_buildings",
+      "employment",
+      "unemployment"
     ]
   },
   "sources": [
@@ -130,6 +132,14 @@
       ]
     },
     {
+      "name": "Statistics Sweden TAB6383",
+      "url": "https://statistikdatabasen.scb.se/api/v2/tables/TAB6383/data?lang=en&outputFormat=json-stat2",
+      "outputs": [
+        "sweden/factors/employment_pct.csv",
+        "sweden/factors/unemployment_pct.csv"
+      ]
+    },
+    {
       "name": "Statistics Sweden AA0003D / IntGr6Kom bulk export",
       "url": "https://www.statistikdatabasen.scb.se/Resources/PX/bulk/ssd/sv/TAB1797_sv.zip",
       "outputs": [
@@ -156,7 +166,9 @@
     "density": 870,
     "cars": 870,
     "rented_accommodation": 870,
-    "one_two_dwelling_buildings": 870
+    "one_two_dwelling_buildings": 870,
+    "employment": 290,
+    "unemployment": 290
   },
   "comparability_rule": "All Sweden public factors remain country-local or family-mapped only. No Sweden-vs-Denmark public comparability is claimed. Historical municipality election rows are election-only and should not be read as a factor-aware pattern layer."
 }

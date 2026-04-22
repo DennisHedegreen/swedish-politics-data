@@ -22,6 +22,18 @@ from core.presentation import (
 from country_registry import BASE_FACTOR_CATALOG
 
 
+SWEDEN_FACTOR_OVERRIDES: dict[str, dict[str, str]] = {
+    "employment": {
+        "metric_label": "Employment rate (%)",
+        "filename": "employment_pct.csv",
+    },
+    "unemployment": {
+        "metric_label": "Unemployment rate (%)",
+        "filename": "unemployment_pct.csv",
+    },
+}
+
+
 SWEDEN_INTERNAL_FACTOR_CATALOG: dict[str, dict[str, str]] = {}
 
 
@@ -78,12 +90,15 @@ def load_sweden_factor_file(filename, variant="", data_dir="factors"):
 
 
 def get_sweden_factor_catalog(country_config, runtime_context):
-    catalog = {key: BASE_FACTOR_CATALOG[key] for key in country_config.supported_factors}
+    catalog = {
+        key: {**BASE_FACTOR_CATALOG[key], **SWEDEN_FACTOR_OVERRIDES.get(key, {})}
+        for key in country_config.supported_factors
+    }
     if runtime_context.profile.allow_internal:
         for key, spec in SWEDEN_INTERNAL_FACTOR_CATALOG.items():
             source_path = sweden_public_path(f"{spec.get('data_dir', 'factors')}/{spec['filename']}", runtime_context.data_variant)
             if source_path.exists():
-                catalog[key] = spec
+                catalog[key] = {**BASE_FACTOR_CATALOG.get(key, {}), **spec}
     return catalog
 
 
@@ -208,7 +223,7 @@ def render(country_config, selected_country_label, runtime_context):
     data_state = summarize_public_data_state(municipal_df=mun, national_df=nat, factor_frames=factor_frames)
     sweden_years = sorted(mun["year"].unique().tolist())
     available_municipalities = sorted(mun["municipality"].unique())
-    metric_options = [factor_catalog[key] | {"key": key} for key in factor_catalog]
+    all_metric_options = [factor_catalog[key] | {"key": key} for key in factor_catalog]
     latest_sweden_year = sweden_years[-1] if sweden_years else None
     latest_year_votes = mun[mun["year"] == latest_sweden_year].copy() if latest_sweden_year is not None else mun.iloc[0:0].copy()
     latest_party_profiles = get_sweden_party_profiles(latest_year_votes)
@@ -313,9 +328,6 @@ Positive r = both rise together. Negative r = they move in opposite directions.
             unsafe_allow_html=True,
         )
 
-        factor_name_to_item = {item["label"]: item for item in metric_options}
-        metric_labels = [item["label"] for item in metric_options]
-
         st.markdown('<div class="step-label">Step 1 — Which election year?</div>', unsafe_allow_html=True)
         sw_year_options = sweden_years
         if len(sw_year_options) == 1:
@@ -337,6 +349,12 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                 label_visibility="collapsed",
             )
         current_year_votes = mun[mun["year"] == sw_year].copy()
+        metric_options = [
+            item for item in all_metric_options
+            if not get_sweden_metric_series(item["key"], sw_year, factor_frames, factor_catalog).empty
+        ]
+        factor_name_to_item = {item["label"]: item for item in metric_options}
+        metric_labels = [item["label"] for item in metric_options]
         party_profiles = get_sweden_party_profiles(current_year_votes)
         all_parties = party_profiles["party"].tolist()
         default_public_parties = party_profiles.loc[party_profiles["default_public"], "party"].tolist()
@@ -864,7 +882,7 @@ Internal harvested candidates remain outside the public selector until they surv
             """
 **Method note**
 - Correlation is not causation.
-- Sweden public factors are municipality-safe and year-aware for `2014`, `2018`, and `2022`.
+- Sweden public factors are municipality-safe and year-aware; most span `2014`, `2018`, and `2022`, while `employment` and `unemployment` currently enter the public layer only for `2022`.
 - Sweden `National trends` is a separate official Valmyndigheten national summary layer for `2002`, `2006`, `2010`, `2014`, `2018`, and `2022`.
 - The public factor layer currently favors factors with clean municipality coverage and readable public semantics over breadth.
 - Smaller or thinner-coverage parties can be restored in Explore, but the default party view keeps the first reading more robust.
@@ -872,7 +890,7 @@ Internal harvested candidates remain outside the public selector until they surv
 """
         )
         factor_state = []
-        for item in metric_options:
+        for item in all_metric_options:
             filename = item["filename"]
             state = get_factor_status(factor_frames[filename])
             factor_state.append({"Factor": item["label"], "Status": format_status_label(state)})
@@ -889,6 +907,7 @@ Internal harvested candidates remain outside the public selector until they surv
 <div class="source-item"><strong>Statistics Sweden TAB1278 bulk export</strong> — Passenger cars in use, normalized to cars per 1,000 residents.</div>
 <div class="source-item"><strong>Statistics Sweden AA0003D / IntGr6Kom bulk export</strong> — Share in rented accommodation.</div>
 <div class="source-item"><strong>Statistics Sweden BO0104T01 / TAB821 bulk export</strong> — Share in one-/two-dwelling buildings.</div>
+<div class="source-item"><strong>Statistics Sweden TAB6383</strong> — Employment and unemployment rates, exposed publicly for the `2022` election year only.</div>
             """,
             unsafe_allow_html=True,
         )

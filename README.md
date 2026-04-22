@@ -15,7 +15,7 @@ This repo is the Sweden-only public surface extracted from the internal World-po
 - Municipality election years: `2014`, `2018`, `2022`
 - National trend years: `2002`, `2006`, `2010`, `2014`, `2018`, `2022`
 - Public geography: `municipality`
-- Current public factors: `population`, `age65`, `education`, `income`, `turnout`, `population density`, `cars`, `rented accommodation`, `one-/two-dwelling buildings`
+- Current public factors: `population`, `age65`, `education`, `income`, `turnout`, `population density`, `cars`, `rented accommodation`, `one-/two-dwelling buildings`, `employment (2022 only)`, `unemployment (2022 only)`
 
 ## Run locally
 
@@ -35,7 +35,7 @@ streamlit run app.py
 ## Intentionally missing
 
 - `Regional` and `municipal` election layers
-- `Employment`, `unemployment`, and `welfare` as public factors until year-coverage and semantics are strong enough
+- `Welfare` as a public factor until coverage and semantics are strong enough
 - Housing and forest layers until they survive source and coverage review
 
 ## Data sources
