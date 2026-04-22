@@ -24,6 +24,8 @@ METRIC_SHORT_LABELS = {
     "Owner-occupied housing": "Owner-occ. %",
     "Detached houses": "Detached %",
     "One-person households": "1-person %",
+    "Rented accommodation": "Rented %",
+    "One-/two-dwelling buildings": "1-/2-dwell. %",
 }
 
 METRIC_PHRASES = {
@@ -43,6 +45,8 @@ METRIC_PHRASES = {
     "Owner-occupied housing": "owner-occupied housing share",
     "Detached houses": "detached-house dwelling share",
     "One-person households": "one-person household share",
+    "Rented accommodation": "rented accommodation share",
+    "One-/two-dwelling buildings": "one-/two-dwelling building share",
 }
 
 

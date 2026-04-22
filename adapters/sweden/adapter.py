@@ -22,6 +22,9 @@ from core.presentation import (
 from country_registry import BASE_FACTOR_CATALOG
 
 
+SWEDEN_INTERNAL_FACTOR_CATALOG: dict[str, dict[str, str]] = {}
+
+
 def sweden_public_path(relative_path, variant=None):
     active_variant = "" if variant is None else variant
     return resolve_sweden_public_path(relative_path, active_variant)
@@ -63,29 +66,47 @@ def load_sweden_national(variant=""):
 
 
 @st.cache_data
-def load_sweden_factor_file(filename, variant=""):
-    path = sweden_public_path(f"factors/{filename}", variant)
+def load_sweden_factor_file(filename, variant="", data_dir="factors"):
+    path = sweden_public_path(f"{data_dir}/{filename}", variant)
     if not path.exists():
         return pd.DataFrame(columns=["municipality", "public_geography_id", "year", "value", "comparability_status"])
     df = pd.read_csv(path)
     df["year"] = df["year"].astype(int)
+    if "comparability_status" not in df.columns and "harvest_status" in df.columns:
+        df["comparability_status"] = df["harvest_status"]
     return df
 
 
+def get_sweden_factor_catalog(country_config, runtime_context):
+    catalog = {key: BASE_FACTOR_CATALOG[key] for key in country_config.supported_factors}
+    if runtime_context.profile.allow_internal:
+        for key, spec in SWEDEN_INTERNAL_FACTOR_CATALOG.items():
+            source_path = sweden_public_path(f"{spec.get('data_dir', 'factors')}/{spec['filename']}", runtime_context.data_variant)
+            if source_path.exists():
+                catalog[key] = spec
+    return catalog
+
+
 def load_bundle(country_config, runtime_context):
+    factor_catalog = get_sweden_factor_catalog(country_config, runtime_context)
     factor_frames = {
-        BASE_FACTOR_CATALOG[key]["filename"]: load_sweden_factor_file(BASE_FACTOR_CATALOG[key]["filename"], runtime_context.data_variant)
-        for key in country_config.supported_factors
+        spec["filename"]: load_sweden_factor_file(
+            spec["filename"],
+            runtime_context.data_variant,
+            spec.get("data_dir", "factors"),
+        )
+        for spec in factor_catalog.values()
     }
     return {
         "municipal": load_sweden_municipal(runtime_context.data_variant),
         "national": load_sweden_national(runtime_context.data_variant),
         "factor_frames": factor_frames,
+        "factor_catalog": factor_catalog,
     }
 
 
-def get_sweden_metric_series(metric_key, year, factor_frames):
-    filename = BASE_FACTOR_CATALOG[metric_key]["filename"]
+def get_sweden_metric_series(metric_key, year, factor_frames, factor_catalog):
+    filename = factor_catalog[metric_key]["filename"]
     df = factor_frames[filename]
     if df.empty:
         return pd.DataFrame(columns=["municipality", "metric"])
@@ -181,12 +202,13 @@ def ordered_sweden_parties_for_year(municipal_df, year):
 def render(country_config, selected_country_label, runtime_context):
     bundle = load_bundle(country_config, runtime_context)
     factor_frames = bundle["factor_frames"]
+    factor_catalog = bundle["factor_catalog"]
     mun = bundle["municipal"]
     nat = bundle["national"]
     data_state = summarize_public_data_state(municipal_df=mun, national_df=nat, factor_frames=factor_frames)
     sweden_years = sorted(mun["year"].unique().tolist())
     available_municipalities = sorted(mun["municipality"].unique())
-    metric_options = [BASE_FACTOR_CATALOG[key] | {"key": key} for key in country_config.supported_factors]
+    metric_options = [factor_catalog[key] | {"key": key} for key in factor_catalog]
     latest_sweden_year = sweden_years[-1] if sweden_years else None
     latest_year_votes = mun[mun["year"] == latest_sweden_year].copy() if latest_sweden_year is not None else mun.iloc[0:0].copy()
     latest_party_profiles = get_sweden_party_profiles(latest_year_votes)
@@ -389,7 +411,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                 votes = mun[(mun["year"] == sw_year) & (mun["party"] == party)][["municipality", "share"]]
                 for metric_label_name in metric_labels:
                     item = factor_name_to_item[metric_label_name]
-                    ms = get_sweden_metric_series(item["key"], sw_year, factor_frames)
+                    ms = get_sweden_metric_series(item["key"], sw_year, factor_frames, factor_catalog)
                     if ms.empty or "municipality" not in ms.columns:
                         continue
                     merged = votes.merge(ms, on="municipality", how="inner")
@@ -434,7 +456,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
             votes = mun[(mun["year"] == sw_year) & (mun["party"] == party)][["municipality", "share"]]
             for metric_label_name in sw_metric_labels:
                 item = factor_name_to_item[metric_label_name]
-                ms = get_sweden_metric_series(item["key"], sw_year, factor_frames)
+                ms = get_sweden_metric_series(item["key"], sw_year, factor_frames, factor_catalog)
                 if ms.empty or "municipality" not in ms.columns:
                     continue
                 merged = votes.merge(ms, on="municipality", how="inner")
@@ -718,7 +740,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
         cards = []
         for item in metric_options:
             metric_key = item["key"]
-            metric_series = get_sweden_metric_series(metric_key, compare_year, factor_frames)
+            metric_series = get_sweden_metric_series(metric_key, compare_year, factor_frames, factor_catalog)
             left_value = metric_series.loc[metric_series["municipality"] == mun_a, "metric"]
             right_value = metric_series.loc[metric_series["municipality"] == mun_b, "metric"]
             cards.append(
@@ -865,6 +887,8 @@ Internal harvested candidates remain outside the public selector until they surv
 <div class="source-item"><strong>Statistics Sweden TAB1792</strong> — Average disposable income.</div>
 <div class="source-item"><strong>Statistics Sweden TAB628</strong> — Population density.</div>
 <div class="source-item"><strong>Statistics Sweden TAB1278 bulk export</strong> — Passenger cars in use, normalized to cars per 1,000 residents.</div>
+<div class="source-item"><strong>Statistics Sweden AA0003D / IntGr6Kom bulk export</strong> — Share in rented accommodation.</div>
+<div class="source-item"><strong>Statistics Sweden BO0104T01 / TAB821 bulk export</strong> — Share in one-/two-dwelling buildings.</div>
             """,
             unsafe_allow_html=True,
         )

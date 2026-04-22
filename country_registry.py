@@ -44,7 +44,20 @@ BASE_FACTOR_CATALOG = {'population': {'label': 'Population',
           'question': 'Do car-heavy (rural) areas vote differently from urban '
                       'ones?',
           'filename': 'cars_per_1000.csv',
-          'comparability_status': 'country_local'}}
+          'comparability_status': 'country_local'},
+ 'rented_accommodation': {'label': 'Rented accommodation',
+                          'metric_label': 'Share in rented accommodation (%)',
+                          'question': 'Do municipalities with more rented '
+                                      'accommodation vote differently?',
+                          'filename': 'rented_accommodation_pct.csv',
+                          'comparability_status': 'country_local'},
+ 'one_two_dwelling_buildings': {'label': 'One-/two-dwelling buildings',
+                                'metric_label': 'Share in one-/two-dwelling '
+                                                'buildings (%)',
+                                'question': 'Do settlement-form patterns '
+                                            'correlate with voting behaviour?',
+                                'filename': 'one_two_dwelling_building_share_pct.csv',
+                                'comparability_status': 'country_local'}}
 
 PARTY_METADATA = {'Arbetarepartiet-Socialdemokraterna': {'native': 'Arbetarepartiet-Socialdemokraterna',
                                         'english': 'Social Democrats',
@@ -168,7 +181,7 @@ COUNTRY = CountryConfig(
     public_geography_label='municipality',
     public_geography_label_plural='municipalities',
     public_geography_count=290,
-    supported_factors=('population', 'age65', 'education', 'income', 'turnout', 'density', 'cars'),
+    supported_factors=('population', 'age65', 'education', 'income', 'turnout', 'density', 'cars', 'rented_accommodation', 'one_two_dwelling_buildings'),
     supported_elections=('riksdag',),
     internal_ready=True,
     public_ready=True,
@@ -188,11 +201,11 @@ def get_country_config(country_id: str) -> CountryConfig:
 
 
 def list_public_countries() -> list[CountryConfig]:
-    return [COUNTRY]
+    return [COUNTRY] if COUNTRY.public_ready else []
 
 
 def list_internal_countries() -> list[CountryConfig]:
-    return [COUNTRY]
+    return [COUNTRY] if COUNTRY.internal_ready else []
 
 
 def country_data_pack_exists(config: CountryConfig) -> bool:
@@ -216,6 +229,11 @@ def list_exposed_countries(
     require_data_pack: bool = True,
 ) -> list[CountryConfig]:
     allowed = _normalize_allowed_country_ids(allowed_country_ids)
+    if allow_internal:
+        if not COUNTRY.internal_ready:
+            return []
+    elif not COUNTRY.public_ready:
+        return []
     if allowed is None:
         if require_data_pack and not country_data_pack_exists(COUNTRY):
             return []

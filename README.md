@@ -7,7 +7,6 @@ This repo is the Sweden-only public surface extracted from the internal World-po
 ## Public door
 
 - TID door: `https://hedegreenresearch.com/tid/swedish-politics-data/`
-- Live app: `https://swedish-politics-data-s7o3pezehv8somxirp8pde.streamlit.app/`
 - GitHub repo: `https://github.com/DennisHedegreen/swedish-politics-data`
 
 ## Current scope
@@ -16,7 +15,7 @@ This repo is the Sweden-only public surface extracted from the internal World-po
 - Municipality election years: `2014`, `2018`, `2022`
 - National trend years: `2002`, `2006`, `2010`, `2014`, `2018`, `2022`
 - Public geography: `municipality`
-- Current public factors: `population`, `age65`, `education`, `income`, `turnout`, `population density`, `cars`
+- Current public factors: `population`, `age65`, `education`, `income`, `turnout`, `population density`, `cars`, `rented accommodation`, `one-/two-dwelling buildings`
 
 ## Run locally
 

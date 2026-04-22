@@ -30,6 +30,12 @@ PROFILES = {
         country_ids=("sweden",),
         allow_internal=False,
     ),
+    "norway_only": ProfileConfig(
+        name="norway_only",
+        title="Norwegian Politics Data",
+        country_ids=("norway",),
+        allow_internal=True,
+    ),
     "world_internal": ProfileConfig(
         name="world_internal",
         title="World Politics Data",

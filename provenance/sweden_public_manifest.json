@@ -1,6 +1,6 @@
 {
   "country_id": "sweden",
-  "built_at": "2026-04-03T23:32:11Z",
+  "built_at": "2026-04-22T16:53:47Z",
   "scope": {
     "election_type": "riksdag",
     "election_years": [
@@ -42,7 +42,9 @@
       "income",
       "turnout",
       "density",
-      "cars"
+      "cars",
+      "rented_accommodation",
+      "one_two_dwelling_buildings"
     ]
   },
   "sources": [
@@ -126,6 +128,20 @@
       "outputs": [
         "sweden/factors/cars_per_1000.csv"
       ]
+    },
+    {
+      "name": "Statistics Sweden AA0003D / IntGr6Kom bulk export",
+      "url": "https://www.statistikdatabasen.scb.se/Resources/PX/bulk/ssd/sv/TAB1797_sv.zip",
+      "outputs": [
+        "sweden/factors/rented_accommodation_pct.csv"
+      ]
+    },
+    {
+      "name": "Statistics Sweden BO0104T01 / TAB821 bulk export",
+      "url": "https://www.statistikdatabasen.scb.se/Resources/PX/bulk/ssd/sv/TAB821_sv.zip",
+      "outputs": [
+        "sweden/factors/one_two_dwelling_building_share_pct.csv"
+      ]
     }
   ],
   "files_written": {
@@ -138,7 +154,9 @@
     "income": 870,
     "turnout": 870,
     "density": 870,
-    "cars": 870
+    "cars": 870,
+    "rented_accommodation": 870,
+    "one_two_dwelling_buildings": 870
   },
   "comparability_rule": "All Sweden public factors remain country-local or family-mapped only. No Sweden-vs-Denmark public comparability is claimed. Historical municipality election rows are election-only and should not be read as a factor-aware pattern layer."
 }
