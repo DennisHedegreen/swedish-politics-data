@@ -130,6 +130,13 @@ def get_sweden_metric_series(metric_key, year, factor_frames, factor_catalog):
     return frame[["municipality", "metric"]]
 
 
+def available_sweden_metric_options(all_metric_options, year, factor_frames, factor_catalog):
+    return [
+        item for item in all_metric_options
+        if not get_sweden_metric_series(item["key"], year, factor_frames, factor_catalog).empty
+    ]
+
+
 def get_sweden_party_profiles(municipal_df):
     if municipal_df.empty:
         return pd.DataFrame(columns=["party", "municipality_count", "mean_share", "default_public"])
@@ -349,10 +356,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                 label_visibility="collapsed",
             )
         current_year_votes = mun[mun["year"] == sw_year].copy()
-        metric_options = [
-            item for item in all_metric_options
-            if not get_sweden_metric_series(item["key"], sw_year, factor_frames, factor_catalog).empty
-        ]
+        metric_options = available_sweden_metric_options(all_metric_options, sw_year, factor_frames, factor_catalog)
         factor_name_to_item = {item["label"]: item for item in metric_options}
         metric_labels = [item["label"] for item in metric_options]
         party_profiles = get_sweden_party_profiles(current_year_votes)
@@ -755,6 +759,10 @@ Positive r = both rise together. Negative r = they move in opposite directions.
             "</p>",
             unsafe_allow_html=True,
         )
+        metric_options = available_sweden_metric_options(all_metric_options, compare_year, factor_frames, factor_catalog)
+        if not metric_options:
+            st.warning("No public factor rows are available for the selected election year.")
+            return
         cards = []
         for item in metric_options:
             metric_key = item["key"]
