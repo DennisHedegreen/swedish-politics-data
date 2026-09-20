@@ -17,6 +17,26 @@ Check:
 - `National trends`
 - `About & Sources`
 
+## Live Streamlit Preview
+
+- Live app: [swedish-politics-data Streamlit app](https://swedish-politics-data-s7o3pezehv8somxirp8pde.streamlit.app/)
+
+## Streamlit Community Cloud settings
+
+Current Streamlit Community Cloud settings:
+
+- Repository: `DennisHedegreen/swedish-politics-data`
+- Branch: `main`
+- Main file path: `app.py`
+- Python version: `3.12`
+- Secrets: none
+- Suggested app URL: leave blank and use the generated URL
+
+Deploy privacy:
+
+- The GitHub repo is public.
+- Keep the Streamlit app public after public launch.
+
 ## Public deploy shape
 
 - App title: `Swedish Politics Data`

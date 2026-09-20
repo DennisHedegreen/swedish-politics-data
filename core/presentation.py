@@ -181,12 +181,16 @@ def format_display_table(df, decimals=1, missing="—"):
 def render_profile_cards(rows, label_a, label_b):
     cards = []
     for row in rows:
+        reference_line = f"<div class='year'>Source period: {row['Reference']}</div>" if row.get("Reference") else ""
+        note_line = f"<div class='year'>{row['Note']}</div>" if row.get("Note") else ""
         cards.append(
             "<div class='data-card'>"
             f"<div class='metric'>{row['Metric']}</div>"
             f"<div class='value-line'><strong>{label_a}:</strong> {row[label_a]}</div>"
             f"<div class='value-line'><strong>{label_b}:</strong> {row[label_b]}</div>"
-            f"<div class='year'>Year: {row['Year']}</div>"
+            f"<div class='year'>Election year: {row['Year']}</div>"
+            f"{reference_line}"
+            f"{note_line}"
             "</div>"
         )
     st.markdown(f"<div class='data-card-grid'>{''.join(cards)}</div>", unsafe_allow_html=True)
@@ -290,7 +294,7 @@ def build_country_finding(
 
     gap = round(abs(more_avg - less_avg), 1)
     concrete = (
-        f"{country_config.display_name} {country_config.public_geography_label_plural.title()} with {direction} {m_short} "
+        f"{country_config.adjective} {country_config.public_geography_label_plural} with {direction} {m_short} "
         f"tend to vote more for {p_short}. The gap is {gap:.1f} percentage points: "
         f"the 10 {country_config.public_geography_label_plural} with the {low_label} {m_short} gave {more_avg:.1f}% "
         f"to {p_short}, compared to {less_avg:.1f}% in the 10 with the {high_label}."

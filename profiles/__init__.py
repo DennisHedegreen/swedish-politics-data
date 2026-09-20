@@ -36,10 +36,22 @@ PROFILES = {
         country_ids=("norway",),
         allow_internal=True,
     ),
+    "netherlands_only": ProfileConfig(
+        name="netherlands_only",
+        title="Dutch Politics Data",
+        country_ids=("netherlands",),
+        allow_internal=True,
+    ),
+    "belgium_only": ProfileConfig(
+        name="belgium_only",
+        title="Belgian Politics Data",
+        country_ids=("belgium",),
+        allow_internal=True,
+    ),
     "world_internal": ProfileConfig(
         name="world_internal",
         title="World Politics Data",
-        country_ids=("denmark", "sweden", "norway"),
+        country_ids=("denmark", "sweden", "norway", "netherlands", "belgium"),
         allow_internal=True,
     ),
     "denmark_norway": ProfileConfig(

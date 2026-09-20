@@ -6,7 +6,8 @@
     "election_years": [
       2014,
       2018,
-      2022
+      2022,
+      2026
     ],
     "historical_election_only_years": [
       1973,
@@ -31,7 +32,8 @@
       2010,
       2014,
       2018,
-      2022
+      2022,
+      2026
     ],
     "public_geography_type": "municipality",
     "public_geography_count": 290,
@@ -155,9 +157,9 @@
     }
   ],
   "files_written": {
-    "votes": 38280,
+    "votes": 40890,
     "historical_votes": 35204,
-    "national_votes": 54,
+    "national_votes": 63,
     "population": 870,
     "age65": 870,
     "education": 870,
@@ -170,5 +172,8 @@
     "employment": 290,
     "unemployment": 290
   },
-  "comparability_rule": "All Sweden public factors remain country-local or family-mapped only. No Sweden-vs-Denmark public comparability is claimed. Historical municipality election rows are election-only and should not be read as a factor-aware pattern layer."
+  "comparability_rule": "All Sweden public factors remain country-local or family-mapped only. No Sweden-vs-Denmark public comparability is claimed. Historical municipality election rows are election-only and should not be read as a factor-aware pattern layer.",
+  "notes": [
+    "2026 local model 2 promotion candidate added on 2026-09-20: reporting parties plus Other; latest-available factors carry source_year/source_period."
+  ]
 }

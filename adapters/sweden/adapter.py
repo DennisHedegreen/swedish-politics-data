@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from core.correlation import compute_correlation_result, corr_strength_label, rank_correlation_results
+from core.correlation import compute_correlation_result, corr_strength_label
 from core.data_variants import resolve_sweden_public_path
 from core.failure_states import describe_public_data_state, summarize_public_data_state
 from core.presentation import (
@@ -130,6 +130,48 @@ def get_sweden_metric_series(metric_key, year, factor_frames, factor_catalog):
     return frame[["municipality", "metric"]]
 
 
+def get_sweden_factor_source_periods(metric_keys, year, factor_frames, factor_catalog):
+    source_periods = {}
+    for metric_key in metric_keys:
+        filename = factor_catalog[metric_key]["filename"]
+        df = factor_frames[filename]
+        if df.empty or "year" not in df.columns:
+            continue
+        year_frame = df[df["year"] == year].copy()
+        if year_frame.empty:
+            continue
+        if "source_period" in year_frame.columns:
+            periods = sorted(
+                str(value)
+                for value in year_frame["source_period"].dropna().unique().tolist()
+                if str(value).strip()
+            )
+        else:
+            periods = []
+        source_periods[metric_key] = periods or [str(year)]
+    return source_periods
+
+
+def render_sweden_factor_source_note(metric_keys, year, factor_frames, factor_catalog):
+    source_periods = get_sweden_factor_source_periods(metric_keys, year, factor_frames, factor_catalog)
+    if not source_periods:
+        return
+    period_labels = sorted({period for periods in source_periods.values() for period in periods})
+    if period_labels == [str(year)]:
+        return
+    by_label = []
+    for metric_key in metric_keys:
+        if metric_key not in source_periods:
+            continue
+        label = factor_catalog[metric_key]["label"]
+        by_label.append(f"{label}: {', '.join(source_periods[metric_key])}")
+    st.info(
+        "Factor reference periods for this election view: "
+        + "; ".join(by_label)
+        + ". Election year and factor measurement year are not always the same."
+    )
+
+
 def available_sweden_metric_options(all_metric_options, year, factor_frames, factor_catalog):
     return [
         item for item in all_metric_options
@@ -243,7 +285,7 @@ def render(country_config, selected_country_label, runtime_context):
         st.markdown(f"**{country_config.adjective} Politics Data**")
         st.markdown(
             "<p style='font-size:0.75rem;color:#6a6a7a;line-height:1.6;margin-top:0.3rem;'>"
-            "National vote trends 2002–2022. Municipality-level public reading for Riksdag 2014, 2018, and 2022.</p>",
+            "National vote trends 2002–2026. Municipality-level public reading for Riksdag 2014, 2018, 2022, and 2026.</p>",
             unsafe_allow_html=True,
         )
         st.divider()
@@ -377,6 +419,13 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                 "No factor is currently selected. Municipality-level pattern analysis requires at least one factor."
                 "</p>",
                 unsafe_allow_html=True,
+            )
+        else:
+            render_sweden_factor_source_note(
+                [factor_name_to_item[label]["key"] for label in sw_metric_labels if label in factor_name_to_item],
+                sw_year,
+                factor_frames,
+                factor_catalog,
             )
 
         st.markdown('<div class="step-label" style="margin-top:1rem;">Step 3 — Pick a party</div>', unsafe_allow_html=True)
@@ -576,7 +625,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                     unsafe_allow_html=True,
                 )
                 return
-            ranked = rank_correlation_results(valid_results)
+            ranked = sorted(valid_results, key=lambda x: abs(float(x["r"])), reverse=True)
             summary = pd.DataFrame(
                 [{"Factor": r["factor"], "Label": r["factor"], "r": r["r"], "Strength": r["strength"]} for r in ranked]
             )
@@ -613,7 +662,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                     unsafe_allow_html=True,
                 )
                 return
-            ranked = rank_correlation_results(valid_results)
+            ranked = sorted(valid_results, key=lambda x: abs(float(x["r"])), reverse=True)
             summary = pd.DataFrame(
                 [{"Party": format_party_name(r["party"], metadata=country_config.party_metadata, mode=party_name_mode, compact=True), "Party_full": format_party_name(r["party"], metadata=country_config.party_metadata, mode=party_name_mode), "r": r["r"], "Strength": r["strength"]} for r in ranked]
             )
@@ -763,10 +812,18 @@ Positive r = both rise together. Negative r = they move in opposite directions.
         if not metric_options:
             st.warning("No public factor rows are available for the selected election year.")
             return
+        render_sweden_factor_source_note(
+            [item["key"] for item in metric_options],
+            compare_year,
+            factor_frames,
+            factor_catalog,
+        )
         cards = []
         for item in metric_options:
             metric_key = item["key"]
             metric_series = get_sweden_metric_series(metric_key, compare_year, factor_frames, factor_catalog)
+            source_periods = get_sweden_factor_source_periods([metric_key], compare_year, factor_frames, factor_catalog)
+            source_label = ", ".join(source_periods.get(metric_key, [str(compare_year)]))
             left_value = metric_series.loc[metric_series["municipality"] == mun_a, "metric"]
             right_value = metric_series.loc[metric_series["municipality"] == mun_b, "metric"]
             cards.append(
@@ -775,6 +832,7 @@ Positive r = both rise together. Negative r = they move in opposite directions.
                     mun_a: f"{left_value.iloc[0]:.2f}" if not left_value.empty else "—",
                     mun_b: f"{right_value.iloc[0]:.2f}" if not right_value.empty else "—",
                     "Year": str(compare_year),
+                    "Reference": source_label,
                 }
             )
         st.subheader("Current factor profile")
@@ -871,12 +929,12 @@ Positive r = both rise together. Negative r = they move in opposite directions.
         st.title("About & Sources")
         st.markdown(
             f"""
-This Sweden surface currently covers a municipality-safe public reading of three Riksdag election years.
+This Sweden surface currently covers a municipality-safe public reading of four Riksdag election years.
 
 Built for journalists and researchers. No login required. This public layer is deliberately narrow and municipality-safe by design.
 
 - Country: `{country_config.display_name}`
-- Election scope: `Riksdag municipality layer 2014, 2018, 2022` + `national vote trends 2002–2022`
+- Election scope: `Riksdag municipality layer 2014, 2018, 2022, 2026` + `national vote trends 2002–2026`
 - Public geography: `{country_config.public_geography_label}`
 - Public geography count: `{country_config.public_geography_count}`
 - Statistics source: `{country_config.statistics_source_name}`
@@ -890,8 +948,8 @@ Internal harvested candidates remain outside the public selector until they surv
             """
 **Method note**
 - Correlation is not causation.
-- Sweden public factors are municipality-safe and year-aware; most span `2014`, `2018`, and `2022`, while `employment` and `unemployment` currently enter the public layer only for `2022`.
-- Sweden `National trends` is a separate official Valmyndigheten national summary layer for `2002`, `2006`, `2010`, `2014`, `2018`, and `2022`.
+- Sweden public factors are municipality-safe and year-aware. The 2026 election view uses latest available factor measurements and shows their source periods explicitly.
+- Sweden `National trends` is a separate official Valmyndigheten national summary layer for `2002`, `2006`, `2010`, `2014`, `2018`, `2022`, and `2026`.
 - The public factor layer currently favors factors with clean municipality coverage and readable public semantics over breadth.
 - Smaller or thinner-coverage parties can be restored in Explore, but the default party view keeps the first reading more robust.
 - Party name mode changes only labels in the interface. Data values and party IDs stay the same.
@@ -906,8 +964,8 @@ Internal harvested candidates remain outside the public selector until they surv
         st.subheader("Data sources")
         st.markdown(
             """
-<div class="source-item"><strong>Valmyndigheten</strong> — Municipality election exports for `2014`, `2018`, and `2022` in the Sweden public vote layer.</div>
-<div class="source-item"><strong>Valmyndigheten national summaries</strong> — Official national Riksdag vote-share summaries for `2002`, `2006`, `2010`, `2014`, `2018`, and `2022`.</div>
+<div class="source-item"><strong>Valmyndigheten</strong> — Municipality election exports for `2014`, `2018`, `2022`, and final Riksdag municipality summary for `2026` in the Sweden public vote layer.</div>
+<div class="source-item"><strong>Valmyndigheten national summaries</strong> — Official national Riksdag vote-share summaries for `2002`, `2006`, `2010`, `2014`, `2018`, `2022`, and `2026`.</div>
 <div class="source-item"><strong>Statistics Sweden TAB1267</strong> — Population and age structure.</div>
 <div class="source-item"><strong>Statistics Sweden TAB3981</strong> — Higher education share.</div>
 <div class="source-item"><strong>Statistics Sweden TAB1792</strong> — Average disposable income.</div>

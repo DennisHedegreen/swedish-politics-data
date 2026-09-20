@@ -1,6 +1,8 @@
 # Swedish Politics Data
 
-Swedish Politics Data compares Swedish Riksdag vote shares with municipality-level public factors. It is built for finding reporting leads and visible patterns, not for proving why people vote as they do.
+Swedish Politics Data compares Swedish Riksdag election vote shares with municipality-level structural factors. It is built for finding reporting leads and visible patterns, not for proving why people vote as they do.
+
+This repo is the country-only public surface for the declared scope.
 
 ## Public Door
 
@@ -13,11 +15,12 @@ Swedish Politics Data compares Swedish Riksdag vote shares with municipality-lev
 - Country: Sweden
 - Election type: Riksdag
 - Unit of analysis: municipality
-- Municipality election years: `2014`, `2018`, `2022`
-- National trend years: `2002`, `2006`, `2010`, `2014`, `2018`, `2022`
-- Public factors: population, age 65+, education, income, turnout, population density, cars, rented accommodation, one-/two-dwelling buildings, employment (2022 only), unemployment (2022 only)
+- Municipality election years: `2014`, `2018`, `2022`, `2026`
+- National trend years: `2002`, `2006`, `2010`, `2014`, `2018`, `2022`, `2026`
+- Public geography: `municipality`
+- Factors: Population, Age 65+, Education, Income, Turnout, Population density, Cars, Rented accommodation, One-/two-dwelling buildings, Employment, Unemployment
 
-This repo is Sweden-only and Riksdag-only. It does not cover Swedish regional or municipal elections.
+This repo is the Sweden-only public surface extracted from the internal World-politics-data engine. It keeps the public app shell, Sweden data pack, Sweden scope notes, and Sweden-only documentation without exposing the internal multi-country registry.
 
 ## What You Can Do
 
@@ -34,23 +37,39 @@ This repo is Sweden-only and Riksdag-only. It does not cover Swedish regional or
 - A weak or missing result does not prove that a factor is irrelevant.
 - The app is not a prediction model, campaign tool, or causal engine.
 
+This repo is Sweden-only and Riksdag-only. It does not cover regional or municipal election layers.
+
 ## How To Read Results
 
 Positive correlation means higher party vote share tends to appear in municipalities where the selected factor is higher. Negative correlation means higher party vote share tends to appear where the selected factor is lower. The result is ranked by absolute correlation strength, so `-0.62` is treated as stronger than `0.31`.
 
-Example: if a party has `r = -0.54` with rented accommodation in 2022, a responsible reading is: "The party tended to have lower vote shares in municipalities with higher rented-accommodation shares in this election year." It is not: "Rental housing caused voters to reject this party."
+Example: if a party has `r = 0.58` with population density, a responsible reading is: "The party tended to have higher vote shares in denser municipalities in this election year." It is not: "Density made voters choose this party."
 
 ## Quick Case
 
 A journalist could start with a strong party-factor result, open the high and low municipality tables, and ask a concrete reporting question: is this a real geographic pattern, a party-history pattern, or just a one-year artifact? The app gives the lead. The reporting still has to do the verification.
 
-See [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) and [METHODOLOGY.md](METHODOLOGY.md) before using results in public claims.
+See [METHODOLOGY.md](METHODOLOGY.md) before using results in public claims.
+
+## Boundary
+
+- Not a multi-country politics product
+- Not a prediction model
+- Not an explanation engine
+- Not a broader politics product beyond the declared Sweden scope
+- Not a full Sweden election archive beyond the declared Riksdag scope
+
+Intentionally missing:
+
+- `Regional` and `municipal` election layers
+- `Welfare` as a public factor until coverage and semantics are strong enough
+- Housing and forest layers until they survive source and coverage review
 
 ## Public Sources
 
-- Election source: `Valmyndigheten municipality election exports for 2014, 2018, and 2022`
+- Election source: `Valmyndigheten municipality election exports for 2014, 2018, and 2022 + Statistics Sweden municipal indicators`
 - Statistics source: `Statistics Sweden`
-- Public-safe provenance notes: [provenance/](provenance/)
+- Provenance notes: [provenance/](provenance/)
 
 ## Repo Structure
 
@@ -60,9 +79,9 @@ engine_app.py        Shared app shell extracted from the internal engine
 correlation_utils.py Compatibility import for correlation helpers
 core/                Runtime, presentation, correlation, and failure-state helpers
 country_registry.py  Sweden-only public registry
-sweden/              Sweden data pack and scope notes
+sweden/              Country data pack and scope notes
 provenance/          Public-safe manifests
-tests/               Public-surface and logic contract tests
+tests/               Country-surface and logic contract tests
 ```
 
 ## Source Of Truth
